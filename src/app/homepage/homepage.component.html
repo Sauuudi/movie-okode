@@ -1,0 +1,31 @@
+<div class="text-center">
+  <h1>Movie Find</h1>
+</div>
+
+<div class="container">
+  <div class="column">
+    <div class="search-movie">
+      <input
+        [(ngModel)]="searchText"
+        class="input-field"
+        placeholder="what movie are you looking for?"
+      />
+      <button (click)="search()">GO</button>
+    </div>
+
+    <div class="resulst">
+      <h2>Results:</h2>
+      <span *ngIf="noResults"> NO RESULTS</span>
+      <table *ngIf="showResults">
+        <tbody>
+          <tr *ngFor="let movie of movies; index as index">
+            <td>
+              {{ movies[index].original_title }} __
+              {{ movies[index].popularity }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
