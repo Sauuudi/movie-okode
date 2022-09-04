@@ -1,0 +1,33 @@
+* {
+    padding: 0;
+    margin: 0;
+  }
+  
+  .container{
+    margin-top: 2%;
+    margin-bottom: 2%;
+  }
+  
+  .row {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .column {
+    display: flex;
+    flex-direction: column;
+  }
+  
+
+  
+  
+  .table td,
+  .table th {
+    padding: 0.2rem;
+    vertical-align: top;
+  }
+  .text-uppercase {
+    text-transform: uppercase;
+  }
+  
+  

@@ -1,1 +1,61 @@
-<p>movie-detail works!</p>
+<div class="container">
+  <div class="row">
+    <div class="image-box">
+      <img
+        class="image"
+        src="https://image.tmdb.org/t/p/w300_and_h450_bestv2{{
+          movie.poster_path
+        }}"
+      />
+    </div>
+    <div class="column movie-detail">
+      <table class="table table-borderless">
+        <tr>
+          <td>
+            <h3>{{ movie.title }} ( {{ release_year }} )</h3>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            {{ movie.tagline }}
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            {{ movie.release_date }}
+
+            <span *ngFor="let genre of movie.genres; index as index">
+              · {{ genre.name }}
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Overview
+          </td>
+        </tr>
+        <tr>
+          <td>
+            {{ movie.overview }}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <tr>
+              <td>Original Title</td>
+              <td>User Rating</td>
+            </tr>
+
+            <tr>
+              <td>
+                {{ movie.original_title }}
+              </td>
+              <td>{{ movie.vote_average }}%</td>
+            </tr>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

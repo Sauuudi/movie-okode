@@ -19,7 +19,7 @@
       <table *ngIf="showResults">
         <tbody>
           <tr *ngFor="let movie of movies; index as index">
-            <td>
+            <td [routerLink]="'/movies/' + movies[index].id"  style="cursor: pointer;">
               {{ movies[index].original_title }} __
               {{ movies[index].popularity }}
             </td>
