@@ -1,61 +1,72 @@
-<div class="container">
-  <div class="row">
-    <div class="image-box">
-      <img
-        class="image"
-        src="https://image.tmdb.org/t/p/w300_and_h450_bestv2{{
-          movie.poster_path
-        }}"
-      />
+<div
+  class="container"
+  style="
+    background-size: cover;
+    background-image: linear-gradient(
+        to right,
+        rgba(157.5, 178.5, 199.5, 1) 150px,
+        rgba(157.5, 178.5, 199.5, 0.7) 100%
+      ), url(https://image.tmdb.org/t/p/w1920_and_h800_multi_faces{{movie.backdrop_path}});
+  "
+>
+    <div class="row main-box">
+      <div class="image-box column">
+        <img
+          class="image"
+          src="https://image.tmdb.org/t/p/w300_and_h450_bestv2{{
+            movie.poster_path
+          }}"
+        />
+      </div>
+      <div class="column movie-detail">
+        <table class="table table-borderless">
+          <tr>
+            <td>
+              <h3 class="title">{{ movie.title }} ( {{ release_year }} )</h3>
+            </td>
+          </tr>
+          <tr>
+            <td class="tagline">
+              {{ movie.tagline }}
+            </td>
+          </tr>
+
+          <tr>
+            <td class="release-genre">
+              {{ movie.release_date }}
+
+              <span *ngFor="let genre of movie.genres; index as index">
+                · {{ genre.name }}
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <td><h4>Overview</h4></td>
+          </tr>
+          <tr>
+            <td class="overview">
+              {{ movie.overview }}
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <tr>
+                <td style="text-align: -webkit-center; font-weight: bold;">Original Title</td>
+                <td style="text-align: -webkit-center; font-weight: bold;">User Rating</td>
+              </tr>
+
+              <tr>
+                <td style="text-align: -webkit-center; font-style: italic;">
+                  {{ movie.original_title }}
+                </td>
+                <td style="text-align: -webkit-center; font-size: 22px;">
+                  {{ movie.vote_average }}
+                </td>
+              </tr>
+            </td>
+          </tr>
+        </table>
+      </div>
     </div>
-    <div class="column movie-detail">
-      <table class="table table-borderless">
-        <tr>
-          <td>
-            <h3>{{ movie.title }} ( {{ release_year }} )</h3>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            {{ movie.tagline }}
-          </td>
-        </tr>
-
-        <tr>
-          <td>
-            {{ movie.release_date }}
-
-            <span *ngFor="let genre of movie.genres; index as index">
-              · {{ genre.name }}
-            </span>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            Overview
-          </td>
-        </tr>
-        <tr>
-          <td>
-            {{ movie.overview }}
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <tr>
-              <td>Original Title</td>
-              <td>User Rating</td>
-            </tr>
-
-            <tr>
-              <td>
-                {{ movie.original_title }}
-              </td>
-              <td>{{ movie.vote_average }}%</td>
-            </tr>
-          </td>
-        </tr>
-      </table>
-    </div>
-  </div>
+  
 </div>

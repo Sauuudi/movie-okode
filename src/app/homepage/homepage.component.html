@@ -1,31 +1,33 @@
-<div class="text-center">
-  <h1>Movie Find</h1>
-</div>
-
 <div class="container">
   <div class="column">
-    <div class="search-movie">
+    <div class="search-movie text-center">
+      <p class="welcome">Welcome, search the movie you want...</p>
       <input
+        (keydown.enter)="search()"
         [(ngModel)]="searchText"
-        class="input-field"
+        class="input"
         placeholder="what movie are you looking for?"
       />
-      <button (click)="search()">GO</button>
+      <button class="search-button" (click)="search()">GO</button>
     </div>
 
-    <div class="resulst">
-      <h2>Results:</h2>
-      <span *ngIf="noResults"> NO RESULTS</span>
-      <table *ngIf="showResults">
-        <tbody>
-          <tr *ngFor="let movie of movies; index as index">
-            <td [routerLink]="'/movies/' + movies[index].id"  style="cursor: pointer;">
-              {{ movies[index].original_title }} __
-              {{ movies[index].popularity }}
-            </td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="results">
+      <h3 *ngIf="noResults">Search Results: no results</h3>
+      <div *ngIf="showResults">
+        <h2 class="text-center">Search Results:</h2>
+        <table class="table">
+          <tbody>
+            <tr *ngFor="let movie of movies; index as index">
+              <td
+                [routerLink]="'/movies/' + movies[index].id"
+                style="cursor: pointer"
+              >
+                {{ movies[index].original_title }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>
