@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { DatabaseService } from '../services/db.service';
+import { DatabaseService } from '../services/database.service';
 
 @Component({
   selector: 'app-movie-detail',
@@ -18,7 +18,6 @@ export class MovieDetailComponent implements OnInit {
       this.movieId = paramMap.get('id');
     });
     this.db.getMovieTMDB(this.movieId).subscribe((response: any) => {
-      console.log(response);
       this.movie = response;
       this.release_year = this.movie.release_date.slice(0, 4);
     });

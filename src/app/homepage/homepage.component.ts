@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { waitForAsync } from '@angular/core/testing';
-import { DatabaseService } from '../services/db.service';
+import { DatabaseService } from '../services/database.service';
 
 @Component({
   selector: 'app-homepage',
@@ -8,11 +7,11 @@ import { DatabaseService } from '../services/db.service';
   styleUrls: ['./homepage.component.css'],
 })
 export class HomepageComponent implements OnInit {
-  searchText: string = '';
-  noResults: boolean = false;
-  showResults: boolean = false;
-  movies: any[] = [];
-  totalPages: number = 0;
+  searchText = '';
+  movies!: any[];
+  noResults!: boolean;
+  showResults!: boolean;
+  private totalPages = 0;
 
   constructor(private db: DatabaseService) {}
 
@@ -21,7 +20,8 @@ export class HomepageComponent implements OnInit {
     this.showResults = false;
   }
 
-  //this will search all the movies we want and sort them by popularity
+  /*THIS WILL RETURN US THE NUMBER OF PAGES THAT CONTAINS 
+  THE MOVIES WE ARE LOOKING FOR AND CALL NEXT FUNCTION TO GET AND GROUP THEM*/
   search() {
     this.movies = [];
     const firstSearch = this.db
@@ -31,15 +31,23 @@ export class HomepageComponent implements OnInit {
           console.log('no results found');
           this.noResults = true;
         } else {
-          console.log('found ', response.total_results, ' movies');
+          console.log(
+            'found ',
+            response.total_results,
+            ' movies in ',
+            response.total_pages,
+            'pages '
+          );
           this.noResults = false;
           this.totalPages = response.total_pages;
-          firstSearch.unsubscribe();
           this.getAllSearch();
           console.log(this.movies);
         }
+        firstSearch.unsubscribe();
       });
   }
+
+  //THIS WILL GROUP ALL THE MOVIES FROM ALL PAGES AND SORT THEM BY POPULARITY
   getAllSearch() {
     for (let i = 1; i <= this.totalPages; i++) {
       const loopSearch = this.db
@@ -49,10 +57,9 @@ export class HomepageComponent implements OnInit {
             this.movies.push(movie);
           });
           this.movies.sort((m1, m2) => m2.popularity - m1.popularity);
+          this.showResults = true;
           loopSearch.unsubscribe();
         });
     }
-
-    this.showResults = true;
   }
 }
