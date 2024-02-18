@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DatabaseService } from '../services/database.service';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-movie-detail',
@@ -10,16 +11,19 @@ import { DatabaseService } from '../services/database.service';
 export class MovieDetailComponent implements OnInit {
   movieId: any;
   movie: any;
-  release_year: any;
+  releaseYear: any;
+  
   constructor(private db: DatabaseService, private route: ActivatedRoute) {}
 
-  ngOnInit(): void {
+  async ngOnInit() {
     this.route.paramMap.subscribe((paramMap) => {
       this.movieId = paramMap.get('id');
     });
-    this.db.getMovieTMDB(this.movieId).subscribe((response: any) => {
-      this.movie = response;
-      this.release_year = this.movie.release_date.slice(0, 4);
-    });
+    this.movie = await this.getMovie(this.movieId);
+    this.releaseYear = this.movie.release_date.slice(0, 4);
+  }
+
+  getMovie(movieId: number) {
+    return firstValueFrom(this.db.getMovieByIdTMDB(movieId));
   }
 }
